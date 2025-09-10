@@ -35,7 +35,11 @@ builder.ConfigureServices((ctx, services) =>
             .AddHttpClientInstrumentation()
             .AddRuntimeInstrumentation()
             .AddProcessInstrumentation()
-            .AddOtlpExporter())
+            .AddOtlpExporter(o =>
+            {
+                o.Endpoint = new Uri(Environment.GetEnvironmentVariable("OTEL_EXPORTER_OTLP_ENDPOINT") ?? "http://otel-collector:4317");
+                o.Protocol = OpenTelemetry.Exporter.OtlpExportProtocol.Grpc;
+            }))
         .WithMetrics(m => m
             .AddRuntimeInstrumentation()
             .AddProcessInstrumentation()

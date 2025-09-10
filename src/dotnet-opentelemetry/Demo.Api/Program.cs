@@ -34,12 +34,17 @@ builder.Services.AddOpenTelemetry()
         .AddHttpClientInstrumentation()
         .AddRuntimeInstrumentation()
         .AddProcessInstrumentation()
-        .AddOtlpExporter()) // OTLP to Collector (env OTEL_EXPORTER_OTLP_ENDPOINT)
+        .AddOtlpExporter(o =>
+        {
+            o.Endpoint = new Uri(Environment.GetEnvironmentVariable("OTEL_EXPORTER_OTLP_ENDPOINT") ?? "http://otel-collector:4317");
+            o.Protocol = OpenTelemetry.Exporter.OtlpExportProtocol.Grpc;
+        }))
     .WithMetrics(m => m
         .AddAspNetCoreInstrumentation()
         .AddRuntimeInstrumentation()
         .AddProcessInstrumentation()
         .AddPrometheusExporter()); // /metrics
+
 builder.Logging.ClearProviders();
 builder.Logging.AddOpenTelemetry(o =>
 {
