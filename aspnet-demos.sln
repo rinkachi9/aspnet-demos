@@ -1,0 +1,35 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "dotnet-opentelemetry", "dotnet-opentelemetry", "{377D6BE3-89D5-49E5-8B3B-7E940C502D81}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo.Api", "src\dotnet-opentelemetry\Demo.Api\Demo.Api.csproj", "{1CA5B4B0-FD7D-4417-A797-1B091651537D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo.Common", "src\dotnet-opentelemetry\Demo.Common\Demo.Common.csproj", "{EEA49E36-E101-421C-BDD5-E5717764E930}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo.Worker", "src\dotnet-opentelemetry\Demo.Worker\Demo.Worker.csproj", "{D5AC5D83-3661-4FF9-8CC3-F3D84864EED8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1CA5B4B0-FD7D-4417-A797-1B091651537D} = {377D6BE3-89D5-49E5-8B3B-7E940C502D81}
+		{EEA49E36-E101-421C-BDD5-E5717764E930} = {377D6BE3-89D5-49E5-8B3B-7E940C502D81}
+		{D5AC5D83-3661-4FF9-8CC3-F3D84864EED8} = {377D6BE3-89D5-49E5-8B3B-7E940C502D81}
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1CA5B4B0-FD7D-4417-A797-1B091651537D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1CA5B4B0-FD7D-4417-A797-1B091651537D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1CA5B4B0-FD7D-4417-A797-1B091651537D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1CA5B4B0-FD7D-4417-A797-1B091651537D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EEA49E36-E101-421C-BDD5-E5717764E930}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EEA49E36-E101-421C-BDD5-E5717764E930}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EEA49E36-E101-421C-BDD5-E5717764E930}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EEA49E36-E101-421C-BDD5-E5717764E930}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5AC5D83-3661-4FF9-8CC3-F3D84864EED8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5AC5D83-3661-4FF9-8CC3-F3D84864EED8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5AC5D83-3661-4FF9-8CC3-F3D84864EED8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5AC5D83-3661-4FF9-8CC3-F3D84864EED8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,36 @@
+receivers:
+  otlp:
+    protocols:
+      grpc:
+      http:
+
+exporters:
+  jaeger:
+    endpoint: jaeger:14250
+    tls:
+      insecure: true
+  otlphttp/prom:
+    # Not used; metrics scraped by Prometheus directly from apps
+    endpoint: http://prometheus:9090
+  loki:
+    endpoint: http://loki:3100/loki/api/v1/push
+    labels:
+      resource:
+        service.name: "service"
+      attributes:
+        severity: "level"
+    format: json
+
+processors:
+  batch: {}
+
+service:
+  pipelines:
+    traces:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [jaeger]
+    logs:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [loki]
