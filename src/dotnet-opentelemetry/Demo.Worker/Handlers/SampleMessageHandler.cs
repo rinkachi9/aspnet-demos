@@ -1,23 +1,35 @@
-using System.Text;
+using System.Diagnostics;
+using Demo.Common.Messaging.Contracts;
+using Demo.Common.Telemetry;
 using KafkaFlow;
 using Serilog;
 
 namespace Demo.Worker.Handlers;
 
-public class SampleMessageHandler : IMessageMiddleware
+public class SampleMessageHandler : IMessageHandler<SampleMessage>
 {
-    private static readonly Random Rng = new();
-
-    public async Task Invoke(IMessageContext context, MiddlewareDelegate next)
+    public async Task Handle(IMessageContext context, SampleMessage message)
     {
-        var json = Encoding.UTF8.GetString(context.Message.Value as byte[] ?? Array.Empty<byte>());
-        Log.Information("Consumed raw message: {Value}", json);
+        var activity = Activity.Current;
+        activity?.SetTag("messaging.message_id", message.Id);
+        activity?.SetTag("messaging.message_payload_length", message.Payload.Length);
 
-        // Simulate some processing work
-        await Task.Delay(Rng.Next(50, 250));
+        var stopwatch = Stopwatch.StartNew();
 
-        Log.Information("Processed message offset {Offset}", context.ConsumerContext.Offset);
+        try
+        {
+            await Task.Delay(Random.Shared.Next(50, 250), context.ConsumerContext.WorkerStopped);
 
-        await next(context);
+            Log.Information(
+                "Processed message {MessageId} at offset {Offset} / partition {Partition}",
+                message.Id,
+                context.ConsumerContext.Offset,
+                context.ConsumerContext.Partition);
+        }
+        finally
+        {
+            stopwatch.Stop();
+            Metrics.MessageProcessingDuration.Record(stopwatch.Elapsed.TotalMilliseconds);
+        }
     }
 }

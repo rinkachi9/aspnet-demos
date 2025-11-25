@@ -1,32 +1,41 @@
 using System.Diagnostics;
 using System.Text;
-using Demo.Common.Messaging;
+using Demo.Common.Telemetry;
 using KafkaFlow;
+using OpenTelemetry;
+using OpenTelemetry.Context.Propagation;
 
 namespace Demo.Worker.Middlewares;
 
-// Middleware to extract trace context from Kafka headers
 public class TracingMiddleware : IMessageMiddleware
 {
+    private readonly TextMapPropagator _propagator = Propagators.DefaultTextMapPropagator;
+
     public async Task Invoke(IMessageContext context, MiddlewareDelegate next)
     {
-        var headers = context.Headers;
-        var carrier = new Dictionary<string, string>();
-        foreach (var h in headers)
+        var carrier = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+        foreach (var header in context.Headers)
         {
-            try { carrier[h.Key] = Encoding.UTF8.GetString(h.Value); } catch { }
+            if (header.Value is null) continue;
+            carrier[header.Key] = Encoding.UTF8.GetString(header.Value);
         }
 
-        var propagator = System.Diagnostics.Propagators.DistributedContextPropagator.Current;
-        var parentContext = propagator.Extract(default, carrier, (c, k) => c.TryGetValue(k, out var v) ? new[] { v } : Array.Empty<string>());
+        var parentContext = _propagator.Extract(default, carrier, (c, key) =>
+            c.TryGetValue(key, out var value) ? new[] { value } : Array.Empty<string>());
 
-        using var activity = Common.Telemetry.Telemetry.ActivitySource.StartActivity(
+        Baggage.Current = parentContext.Baggage;
+
+        using var activity = Telemetry.ActivitySource.StartActivity(
             "ConsumeMessage",
             ActivityKind.Consumer,
             parentContext.ActivityContext);
 
         activity?.SetTag("messaging.system", "kafka");
-        activity?.SetTag("messaging.destination", Topics.Sample);
+        activity?.SetTag("messaging.destination", context.ConsumerContext.Topic);
+        activity?.SetTag("messaging.operation", "process");
+        activity?.SetTag("messaging.kafka.topic", context.ConsumerContext.Topic);
+        activity?.SetTag("messaging.kafka.partition", context.ConsumerContext.Partition);
+        activity?.SetTag("messaging.kafka.offset", context.ConsumerContext.Offset);
 
         await next(context);
     }
