@@ -1,0 +1,6 @@
+@LintedApi_HostAddress = http://localhost:5208
+
+GET {{LintedApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

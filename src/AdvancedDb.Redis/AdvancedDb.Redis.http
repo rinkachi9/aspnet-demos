@@ -1,0 +1,6 @@
+@AdvancedDb.Redis_HostAddress = http://localhost:5265
+
+GET {{AdvancedDb.Redis_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

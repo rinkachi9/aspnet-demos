@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+option csharp_namespace = "GrpcService.Api";
+
+package weather;
+
+service Weather {
+  // Unary
+  rpc GetWeather (WeatherRequest) returns (WeatherReply);
+  
+  // Server Streaming
+  rpc MonitorWeather (WeatherRequest) returns (stream WeatherReply);
+}
+
+message WeatherRequest {
+  string city = 1;
+}
+
+message WeatherReply {
+  string city = 1;         // Field 1
+  int32 temperature_c = 2; // Field 2
+  string description = 3;  // Field 3
+  string timestamp = 4;
+}

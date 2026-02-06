@@ -1,0 +1,6 @@
+@AdvancedMedia_HostAddress = http://localhost:5094
+
+GET {{AdvancedMedia_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

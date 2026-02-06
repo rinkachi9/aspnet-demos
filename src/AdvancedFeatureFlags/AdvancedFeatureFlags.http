@@ -1,0 +1,6 @@
+@AdvancedFeatureFlags_HostAddress = http://localhost:5240
+
+GET {{AdvancedFeatureFlags_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

@@ -1,0 +1,6 @@
+@AdvancedCaching_HostAddress = http://localhost:5129
+
+GET {{AdvancedCaching_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

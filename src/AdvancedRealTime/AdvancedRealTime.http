@@ -1,0 +1,6 @@
+@AdvancedRealTime_HostAddress = http://localhost:5072
+
+GET {{AdvancedRealTime_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+option csharp_namespace = "AdvancedRealTime.Services";
+
+package portfolio;
+
+service Portfolio {
+  // Client Streaming
+  rpc BulkUpload (stream PortfolioItem) returns (UploadSummary);
+}
+
+message PortfolioItem {
+  string symbol = 1;
+  int32 quantity = 2;
+  double avg_price = 3;
+}
+
+message UploadSummary {
+  int32 total_items = 1;
+  double total_value = 2;
+  string status = 3;
+}

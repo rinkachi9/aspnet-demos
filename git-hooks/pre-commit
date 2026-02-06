@@ -1,0 +1,22 @@
+#!/bin/sh
+echo "Running pre-commit checks..."
+
+# 1. Check Format
+echo "Checking formatting..."
+dotnet format --verify-no-changes
+if [ $? -ne 0 ]; then
+    echo "Formatting check failed. Run 'dotnet format' to fix."
+    exit 1
+fi
+
+# 2. Check Build (which triggers Analyzers)
+echo "Checking build..."
+# We use LintedApi as the canary
+dotnet build src/Linters/LintedApi/LintedApi.csproj
+if [ $? -ne 0 ]; then
+    echo "Build failed. Fix errors before committing."
+    exit 1
+fi
+
+echo "Pre-commit checks passed!"
+exit 0

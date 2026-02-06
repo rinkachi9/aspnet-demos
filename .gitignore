@@ -1,5 +1,126 @@
-bin/
-obj/
-/packages/
-riderModule.iml
-/_ReSharper.Caches/
+# Build outputs (all projects)
+**/bin/
+**/obj/
+**/out/
+**/artifacts/
+
+# NuGet
+**/packages/
+**/packages.lock.json
+**/project.assets.json
+**/project.nuget.cache
+**/nuget.config.local
+
+# .NET user/temp files
+**/*.user
+**/*.userosscache
+**/*.suo
+**/*.userprefs
+**/*.rsuser
+**/*.sln.docstates
+**/*.log
+**/*.tlog
+**/*.tmp
+**/*.bak
+**/*.old
+**/*.orig
+**/*.cache
+**/*.nupkg
+**/*.snupkg
+**/*.symbols.nupkg
+**/*.dll
+**/*.exe
+**/*.pdb
+**/*.mdb
+**/*.appx
+**/*.appxbundle
+**/*.msix
+**/*.msixbundle
+**/*.appinstaller
+
+# Visual Studio
+.vs/
+**/.vs/
+**/TestResults/
+**/BenchmarkDotNet.Artifacts/
+**/GeneratedFiles/
+**/ScaffoldedItemContext/
+
+# Visual Studio Code
+.vscode/
+**/.vscode/
+**/*.code-workspace
+
+# Rider / IntelliJ
+.idea/
+**/.idea/
+*.sln.iml
+**/*.sln.iml
+**/*.csproj.iml
+**/*.fsproj.iml
+**/*.vbproj.iml
+**/*.sln.DotSettings.user
+
+# ReSharper
+_ReSharper.Caches/
+**/_ReSharper.Caches/
+**/*.DotSettings.user
+
+# DotNet tooling
+**/.dotnet/
+**/.fake/
+**/.paket/
+**/packages/ # Paket
+
+# Local config (secrets, env)
+**/appsettings.Development.json
+**/appsettings.Local.json
+**/appsettings.*.local.json
+**/secrets.json
+**/*.secrets.json
+**/*.env
+**/.env
+**/.env.*
+**/*.local.json
+
+# User-specific files
+**/*.csproj.user
+**/*.fsproj.user
+**/*.vbproj.user
+
+# Coverage / test
+**/coverage/
+**/coverage.*
+**/*.coverage
+**/*.coveragexml
+**/*.opencover.xml
+**/TestResults/
+
+# Logs
+**/logs/
+**/log/
+**/*.log
+
+# Node / frontend tooling (monorepo safety)
+**/node_modules/
+**/dist/
+**/build/
+**/.parcel-cache/
+**/.cache/
+**/.next/
+**/.nuxt/
+**/.svelte-kit/
+**/npm-debug.log*
+**/yarn-debug.log*
+**/yarn-error.log*
+**/pnpm-debug.log*
+
+# OS junk
+.DS_Store
+**/.DS_Store
+Thumbs.db
+**/Thumbs.db
+
+# Git hooks tools
+**/.husky/_/
+

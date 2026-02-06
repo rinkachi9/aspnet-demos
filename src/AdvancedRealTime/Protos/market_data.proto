@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+option csharp_namespace = "AdvancedRealTime.Services";
+
+package market;
+
+service MarketData {
+  // Server Streaming RPC
+  rpc SubscribeToTicker (TickerRequest) returns (stream MarketUpdate);
+}
+
+message TickerRequest {
+  string symbol = 1;
+}
+
+message MarketUpdate {
+  string symbol = 1;
+  double price = 2;
+  string timestamp = 3;
+}

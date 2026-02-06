@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+option csharp_namespace = "AdvancedRealTime.Services";
+
+package trading;
+
+service Trading {
+  // Bi-directional Streaming
+  rpc LiveTrading (stream TradeOrder) returns (stream TradeUpdate);
+}
+
+message TradeOrder {
+  string symbol = 1;
+  double price = 2;
+  int32 quantity = 3;
+  string side = 4; // BUY / SELL
+}
+
+message TradeUpdate {
+  string order_id = 1;
+  string status = 2; // FILLED, PARTIAL, PENDING
+  string message = 3;
+}

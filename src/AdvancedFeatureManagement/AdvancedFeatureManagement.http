@@ -1,0 +1,6 @@
+@AdvancedFeatureManagement_HostAddress = http://localhost:5074
+
+GET {{AdvancedFeatureManagement_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

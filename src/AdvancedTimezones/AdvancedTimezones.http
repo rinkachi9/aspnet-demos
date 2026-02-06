@@ -1,0 +1,6 @@
+@AdvancedTimezones_HostAddress = http://localhost:5069
+
+GET {{AdvancedTimezones_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

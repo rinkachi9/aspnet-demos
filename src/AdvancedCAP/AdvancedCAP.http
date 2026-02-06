@@ -1,0 +1,6 @@
+@AdvancedCAP_HostAddress = http://localhost:5154
+
+GET {{AdvancedCAP_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
