@@ -9,7 +9,7 @@ public class TimePaginationController : ControllerBase
     // Mock Data (Timestamp, Value) - Sorted Descending (Newest first)
     private static readonly List<(DateTime Created, string Value)> _data = Enumerable.Range(1, 1000)
         .Select(i => (DateTime.UtcNow.AddMinutes(-i), $"Event {i}")) // Event 1 is newest (-1 min)
-        .OrderByDescending(x => x.Created)
+        .OrderByDescending(x => x.Item1)
         .ToList();
 
     [HttpGet]
@@ -17,7 +17,7 @@ public class TimePaginationController : ControllerBase
     {
         // TIME CURSOR: Where CreatedAt < LastSeenTimestamp Take Size
         // Common in feeds (Twitter, FB, Logs).
-        
+
         var query = _data.AsQueryable();
 
         if (beforeUnix.HasValue)
@@ -27,15 +27,15 @@ public class TimePaginationController : ControllerBase
         }
 
         var items = query.Take(size).ToList();
-        
-        long? nextCursor = items.Any() 
-            ? ((DateTimeOffset)items.Last().Created).ToUnixTimeSeconds() 
+
+        long? nextCursor = items.Any()
+            ? ((DateTimeOffset)items.Last().Created).ToUnixTimeSeconds()
             : null;
 
-        var response = new 
+        var response = new
         {
             Data = items.Select(x => new { x.Created, x.Value }),
-            Pagination = new 
+            Pagination = new
             {
                 Size = size,
                 NextCursor = nextCursor, // Unix Timestamp
