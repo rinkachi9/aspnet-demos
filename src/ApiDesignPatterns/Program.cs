@@ -24,7 +24,7 @@ builder.Services.AddControllers(options =>
     options.ReturnHttpNotAcceptable = true; // 406 if format not supported
 })
 .AddXmlSerializerFormatters() // Adds XML Support
-.AddProtobufFormatters();     // Adds Protobuf Support
+.AddProtoBufNet();            // Adds Protobuf Support
 
 // 1.2 Compression
 builder.Services.AddResponseCompression(options =>
